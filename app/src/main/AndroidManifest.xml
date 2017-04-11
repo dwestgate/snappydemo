@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="global.snappy.android"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="20" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:name="global.snappy.android.CustomBranchApp" >
+
+        <activity
+            android:name="global.snappy.android.MainActivity"
+            android:label="Snappy"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Non AppLink example -->
+            <intent-filter>
+                <data android:scheme="snappy"/>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="global.snappy.android.CreditHistoryActivity"/>
+
+        <activity android:name=".AutoDeepLinkTestActivity">
+            <!-- Keys for auto deep linking this activity -->
+            <meta-data android:name="io.branch.sdk.auto_link_keys" android:value="auto_deeplink_key_1,auto_deeplink_key_2" />
+
+            <!-- Deep link path for auto deep linking -->
+            <meta-data android:name="io.branch.sdk.auto_link_path" android:value="collection,myapp/#/news/*,merchant" />
+
+            <!-- Optional request ID for launching this activity on auto deep link key matches -->
+            <meta-data android:name="io.branch.sdk.auto_link_request_code" android:value="@integer/AutoDeeplinkRequestCode" />
+        </activity>
+
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="true" /> <!-- Set to true to use Branch_Test_Key -->
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_onFbmxV65C3oovvDCvII9hjcDwea1kqz" />
+
+        <!-- Optional. Set to true to disable auto deep link feature-->
+        <meta-data android:name="io.branch.sdk.auto_link_disable" android:value="false"/>
+
+        <!-- Add this for branch for install referrer tracking-->
+        <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
